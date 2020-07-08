@@ -1,32 +1,37 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+      <component :is="this.$store.state.headcomponent"></component>
+      <div id="nav" v-show="this.$store.state.navflag">
+        <router-link to="/albums">音单</router-link>
+        <router-link to="/recommend">推荐</router-link> 
+        <router-link to="/catalogs">分类</router-link>
+      </div>
     <router-view />
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Headertop from "./components/public/Headertop.vue";
+import Headersearch from "./components/public/Headertop2.vue";
 
-#nav {
-  padding: 30px;
+export default {
+  data(){
+    return {
+      
+    }
+  },
+  components:{
+    "header-top": Headertop,
+    "header-search" :Headersearch
+  }
 }
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style scoped>
+#fixed{position: fixed;top: 0;z-index: 22;}
+#footerfix{position: fixed;bottom: 0;}
+#nav {display: flex;height: 0.4rem;font-size: 0.14rem;text-align: center;line-height: 0.39rem;background-color: white;padding-top: 0.4rem;}
+#nav a {color: #9e9e9e;flex: 1;height: 0.37rem;}
+#nav a.router-link-exact-active {color: #000;position: relative;}
+#nav a.router-link-exact-active::after{background-color: #000;content:"";display: block;width: 0.9rem;height: 0.02rem;position: absolute;left: 50%;bottom: -0.01rem; transform: translateX(-50%);}
 </style>
